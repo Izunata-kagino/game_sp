@@ -14,17 +14,15 @@ import java.awt.image.DataBufferInt;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    public static int width = 900;
+    public static int width = 300;
     public static int height = width / 16 * 9;
-    public static int scale = 1;
+    public static int scale = 3;
     public static String title = "sp_game";
 
     private Thread thread_1;
     private JFrame frame;
     private Keyboard keyboard;
     private boolean running = false;
-
-    private SpriteSheet sheet ;
 
     private Screen screen;
 
