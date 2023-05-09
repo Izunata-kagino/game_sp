@@ -1,8 +1,10 @@
 package com.spgame.game_sp;
 
-import com.spgame.game_sp.graphics.Screen;
 import com.spgame.game_sp.graphics.SpriteSheet;
+import com.spgame.game_sp.graphics.Screen;
 import com.spgame.game_sp.input.Keyboard;
+import com.spgame.game_sp.level.Level;
+import com.spgame.game_sp.level.RandomLevel;
 
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
@@ -22,6 +24,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread_1;
     private JFrame frame;
     private Keyboard keyboard;
+    private Level level;
     private boolean running = false;
 
     private Screen screen;
@@ -30,7 +33,8 @@ public class Game extends Canvas implements Runnable {
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();//parse image into int array
 
     private Random random = new Random();
-    private int random_size = 5;//use for render mod 1 and 2
+
+    private int xx = 0 , yy = 0;
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
@@ -40,6 +44,7 @@ public class Game extends Canvas implements Runnable {
 
         frame = new JFrame();
         keyboard = new Keyboard();
+        level = new RandomLevel(64,64);
         // first spawn keyboard then add key listener
         addKeyListener(keyboard);
 
@@ -61,13 +66,13 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() {
-        if (screen.render_mod == 1)random_size = 3;
         long last_time = System.nanoTime();
         long timer = System.currentTimeMillis();
         final double ns = 1000000000.0 / 75.0;
         double delta = 0;
         int frames = 0;
         int updates = 0;
+        requestFocus();
         while (running) {
             long now = System.nanoTime();
             delta += (now - last_time) / ns;
@@ -78,19 +83,7 @@ public class Game extends Canvas implements Runnable {
                 updates++;
             }
 
-            //for render mod 1 and 2 (early test)
-            if (screen.render_mod == 2){
-                if (random_size >= 32) random_size--;
-                else if (random_size <= 4) random_size++;
-                else random_size += random.nextInt(-2,2);
-            }else if (screen.render_mod == 1){
-                if (random_size >= 4) random_size--;
-                else if (random_size <= 2) random_size++;
-                else random_size += random.nextInt(-2,2);
-            }
 
-
-            screen.change_tile_size(random_size);
             render();
             frames++;
 
@@ -108,10 +101,14 @@ public class Game extends Canvas implements Runnable {
 
     public void update() {
         keyboard.update();
-        if (keyboard.up) ;//do something
-        else if (keyboard.down) ;//do something
-        if (keyboard.left) ;//do something
-        else if (keyboard.right) ;//do something
+        if (keyboard.up) {
+            yy--;
+        }//do something
+        else if (keyboard.down) yy++;//do something
+        if (keyboard.left) {
+            xx--;
+        }//do something
+        else if (keyboard.right) xx++;//do something
     }
 
     public void render() {
@@ -122,8 +119,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
+        level.render(xx,yy,screen);
 
-        screen.render();
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
