@@ -7,6 +7,7 @@ import com.spgame.game_sp.graphics.Screen;
 import com.spgame.game_sp.input.Keyboard;
 import com.spgame.game_sp.level.Level;
 import com.spgame.game_sp.level.RandomLevel;
+import com.spgame.game_sp.level.SpawnLevel;
 
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
@@ -46,7 +47,8 @@ public class Game extends Canvas implements Runnable {
 
         frame = new JFrame();
         keyboard = new Keyboard();
-        level = new RandomLevel(64,64);
+//        level = new RandomLevel(64,64);
+        level = new SpawnLevel("/texture/level1.png");
         player = new Player(keyboard);
         // first spawn keyboard then add key listener
         addKeyListener(keyboard);

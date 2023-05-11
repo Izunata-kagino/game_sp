@@ -6,27 +6,29 @@ import com.spgame.game_sp.level.tile.Tile;
 public class Level {
 
     protected int width, height;
-    protected int[] tiles;
+    protected Tile[] tiles;
+    protected int[] tilesInt;
     public int[] renderDir;
 
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
-        tiles = new int[width * height];
+        tilesInt = new int[width * height];
         renderDir = new int[64 * 64];
         generateLevel();
     }
 
     public Level(String path) {
         loadLevel(path);
+        generateLevel();
     }
 
     protected void generateLevel() {
 
     }
 
-    private void loadLevel(String path) {
+    protected void loadLevel(String path) {
     }
 
     public void update() {
@@ -53,10 +55,10 @@ public class Level {
 
     public Tile getTile(int x, int y) {
         if (x < 0 || x >= width || y < 0 || y>= height) return Tile.voidTile;
-        if (tiles[x + y * width] == 0) return Tile.grass1;
-        else if(tiles[x + y * width] == 1) return Tile.grass2;
-        else if(tiles[x + y * width] == 2) return Tile.grass3;
-        else if(tiles[x + y * width] == 3) return Tile.grass4;
+        if (tilesInt[x + y * width] == 0) return Tile.grass1;
+        else if(tilesInt[x + y * width] == 1) return Tile.grass2;
+        else if(tilesInt[x + y * width] == 2) return Tile.grass3;
+        else if(tilesInt[x + y * width] == 3) return Tile.grass4;
         return Tile.voidTile;
     }
 

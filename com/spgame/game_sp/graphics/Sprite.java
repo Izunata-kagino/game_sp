@@ -7,6 +7,8 @@ public class Sprite {
     private SpriteSheet sheet;
 
     public static Sprite[] grass = spritesList(16, 0 , 0, 4, SpriteSheet.tiles);
+    public static Sprite flower = new Sprite(16,4,0,SpriteSheet.tiles);
+    public static Sprite rock = new Sprite(16,5,0,SpriteSheet.tiles);
     public static Sprite voidTile = new Sprite(16,1,1,SpriteSheet.tiles);
     public static Sprite blue = new Sprite(16,0,1,SpriteSheet.tiles);
     public static Sprite[] playerUP = spritesList(32, 0 , 7, 4, SpriteSheet.tiles);

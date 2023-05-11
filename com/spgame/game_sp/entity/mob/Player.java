@@ -55,6 +55,7 @@ public class Player extends Mob{
                 y - Sprite.playerUP[0].SIZE/2,
                 sprites[tick >> 11]);
         cachedDir = dir;
+        cachedWalking = isWalking;
 
     }
 
