@@ -48,6 +48,35 @@ public class Screen {
         }
     }
 
+    public void renderTile(int xPosition, int yPosition, Tile tile,int renderDir){
+        xPosition -= xOffset;
+        yPosition -= yOffset;
+        for (int y = 0 ; y<tile.sprite.SIZE; y++){
+            int ya = y + yPosition;
+            for (int x = 0 ; x<tile.sprite.SIZE; x++){
+                int xa = x + xPosition;
+                if (xa < 0 || xa >= width || ya<0 ||ya >= height) continue;
+                pixels[xa+ya*width] = tile.getPixels(x,y,renderDir);
+                //System.out.println(xp +" || "+yp);
+            }
+        }
+    }
+
+    public void renderPlayer(int xPosition, int yPosition, Sprite sprite){
+        xPosition -= xOffset;
+        yPosition -= yOffset;
+        for (int y = 0 ; y<sprite.SIZE; y++){
+            int ya = y + yPosition;
+            for (int x = 0 ; x<sprite.SIZE; x++){
+                int xa = x + xPosition;
+                if (xa < 0 || xa >= width || ya<0 ||ya >= height) continue;
+                if (sprite.pixels[x + y * sprite.SIZE] == 0xffFFFFFF) continue;
+                pixels[xa+ya*width] = sprite.pixels[x+y*sprite.SIZE];
+                //System.out.println(xp +" || "+yp);
+            }
+        }
+    }
+
     public void setOffset(int xOffset, int yOffset){
         this.xOffset = xOffset;
         this.yOffset = yOffset;

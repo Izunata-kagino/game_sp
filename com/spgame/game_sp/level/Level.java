@@ -7,11 +7,14 @@ public class Level {
 
     protected int width, height;
     protected int[] tiles;
+    public int[] renderDir;
+
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
         tiles = new int[width * height];
+        renderDir = new int[64 * 64];
         generateLevel();
     }
 
@@ -53,6 +56,7 @@ public class Level {
         if (tiles[x + y * width] == 0) return Tile.grass1;
         else if(tiles[x + y * width] == 1) return Tile.grass2;
         else if(tiles[x + y * width] == 2) return Tile.grass3;
+        else if(tiles[x + y * width] == 3) return Tile.grass4;
         return Tile.voidTile;
     }
 

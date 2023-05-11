@@ -1,5 +1,7 @@
 package com.spgame.game_sp;
 
+import com.spgame.game_sp.entity.mob.Player;
+import com.spgame.game_sp.graphics.Sprite;
 import com.spgame.game_sp.graphics.SpriteSheet;
 import com.spgame.game_sp.graphics.Screen;
 import com.spgame.game_sp.input.Keyboard;
@@ -25,6 +27,7 @@ public class Game extends Canvas implements Runnable {
     private JFrame frame;
     private Keyboard keyboard;
     private Level level;
+    private Player player;
     private boolean running = false;
 
     private Screen screen;
@@ -34,7 +37,6 @@ public class Game extends Canvas implements Runnable {
 
     private Random random = new Random();
 
-    private int xx = 0 , yy = 0;
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
@@ -45,6 +47,7 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
         keyboard = new Keyboard();
         level = new RandomLevel(64,64);
+        player = new Player(keyboard);
         // first spawn keyboard then add key listener
         addKeyListener(keyboard);
 
@@ -101,14 +104,7 @@ public class Game extends Canvas implements Runnable {
 
     public void update() {
         keyboard.update();
-        if (keyboard.up) {
-            yy--;
-        }//do something
-        else if (keyboard.down) yy++;//do something
-        if (keyboard.left) {
-            xx--;
-        }//do something
-        else if (keyboard.right) xx++;//do something
+        player.update();
     }
 
     public void render() {
@@ -119,7 +115,8 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-        level.render(xx,yy,screen);
+        level.render(player.x - screen.width/2,player.y - screen.height/2,screen);
+        player.render(screen);
 
 
         for (int i = 0; i < pixels.length; i++) {
