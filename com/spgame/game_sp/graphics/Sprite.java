@@ -67,6 +67,9 @@ public class Sprite {
     private void loadWarrior(){
         for (int y = 0; y < 748 / 17; y++) {
             for (int x = 0; x < 414 / 6; x++) {
+                if (x == 28 && y ==30){
+                    System.out.println("?");
+                }
                 if (warriorSheet.pixels[(x+this.x)+(y+this.y)* warriorSheet.width] == 0xff560b28){
                     System.out.println("?");
                 }
