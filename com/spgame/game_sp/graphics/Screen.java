@@ -77,6 +77,23 @@ public class Screen {
         }
     }
 
+    public void renderWarrior(int xPosition, int yPosition, Sprite sprite){
+        xPosition -= xOffset;
+        yPosition -= yOffset;
+        for (int y = 0 ; y<sprite.warriorSheet.hLength; y++){
+            int ya = y + yPosition;
+            for (int x = 0 ; x<sprite.warriorSheet.wLength; x++){
+                int xa = x + xPosition;
+                if (xa < 0 || xa >= width || ya<0 ||ya >= height) continue;
+                if (sprite.pixels[x+y*sprite.warriorSheet.wLength] == 0xff560b28){
+                    System.out.println("?");
+                }
+                pixels[xa+ya*width] = sprite.pixels[x+y*sprite.warriorSheet.wLength];
+                //System.out.println(xp +" || "+yp);
+            }
+        }
+    }
+
     public void setOffset(int xOffset, int yOffset){
         this.xOffset = xOffset;
         this.yOffset = yOffset;

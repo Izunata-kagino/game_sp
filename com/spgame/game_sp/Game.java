@@ -1,6 +1,7 @@
 package com.spgame.game_sp;
 
 import com.spgame.game_sp.entity.mob.Player;
+import com.spgame.game_sp.entity.mob.Warrior;
 import com.spgame.game_sp.graphics.Sprite;
 import com.spgame.game_sp.graphics.SpriteSheet;
 import com.spgame.game_sp.graphics.Screen;
@@ -29,6 +30,7 @@ public class Game extends Canvas implements Runnable {
     private Keyboard keyboard;
     private Level level;
     private Player player;
+    private Warrior warrior;
     private boolean running = false;
 
     private Screen screen;
@@ -49,7 +51,8 @@ public class Game extends Canvas implements Runnable {
         keyboard = new Keyboard();
 //        level = new RandomLevel(64,64);
         level = new SpawnLevel("/texture/level1.png");
-        player = new Player(keyboard);
+        player = new Player(16 * 32, 16 * 32 ,keyboard);
+        warrior = new Warrior(16 * 32, 16 * 32);
         // first spawn keyboard then add key listener
         addKeyListener(keyboard);
 
@@ -119,6 +122,7 @@ public class Game extends Canvas implements Runnable {
         screen.clear();
         level.render(player.x - screen.width/2,player.y - screen.height/2,screen);
         player.render(screen);
+        warrior.render(screen);
 
 
         for (int i = 0; i < pixels.length; i++) {

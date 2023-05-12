@@ -21,6 +21,8 @@ public class Sprite {
 
     public static Sprite[] playerIDLE = spritesList(32, 0 , 3, 4, SpriteSheet.tiles);
 
+    public static Sprite[] warrior = Warrior_spritesList(WarriorSheet.tiles);
+
 
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         SIZE = size;
@@ -40,6 +42,8 @@ public class Sprite {
         return list;
     }
 
+
+
     private void load() {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
@@ -47,5 +51,42 @@ public class Sprite {
             }
         }
     }
+
+
+
+    public WarriorSheet warriorSheet;
+    public Sprite(int x, int y, WarriorSheet sheet){
+        SIZE = 0;
+        this.x = x * sheet.wLength;
+        this.y = y * sheet.hLength;
+        pixels = new int[sheet.wLength * sheet.hLength];
+        this.warriorSheet = sheet;
+        loadWarrior();
+    }
+
+    private void loadWarrior(){
+        for (int y = 0; y < 748 / 17; y++) {
+            for (int x = 0; x < 414 / 6; x++) {
+                if (warriorSheet.pixels[(x+this.x)+(y+this.y)* warriorSheet.width] == 0xff560b28){
+                    System.out.println("?");
+                }
+                pixels[x + y * warriorSheet.width] = warriorSheet.pixels[(x+this.x)+(y+this.y)* warriorSheet.width];
+            }
+        }
+    }
+
+    public static Sprite[] Warrior_spritesList(WarriorSheet sheet){
+        //read all
+        Sprite[] list = new Sprite[sheet.width * sheet.height];
+        for (int j = 0; j < sheet.height; j++){
+            for (int i = 0; i < sheet.width; i++){
+                list[i + j * sheet.width] = new Sprite(i ,j ,sheet);
+                System.out.println(j* sheet.width + i);
+            }
+        }
+        return list;
+    }
+
+
 
 }
